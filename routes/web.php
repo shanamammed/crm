@@ -2,6 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\admin\DashboardController;
+use App\Http\Controllers\admin\RoleController;
+use App\Http\Controllers\admin\UserController;
+use App\Http\Controllers\admin\ProductController;
+
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\DarkModeController;
 use App\Http\Controllers\ColorSchemeController;
@@ -29,9 +34,29 @@ Route::middleware('loggedin')->group(function() {
 
 Route::middleware('auth')->group(function() {
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
-    Route::get('/', [PageController::class, 'dashboardOverview1'])->name('dashboard-overview-1');
-    Route::get('dashboard-overview-2-page', [PageController::class, 'dashboardOverview2'])->name('dashboard-overview-2');
-    Route::get('dashboard-overview-3-page', [PageController::class, 'dashboardOverview3'])->name('dashboard-overview-3');
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+    /*ROLES MODULE*/
+    Route::get('roles', [RoleController::class, 'index'])->name('roles');
+    Route::get('roles/add', [RoleController::class, 'create'])->name('add');
+    Route::post('roles/store', [RoleController::class, 'store'])->name('store');
+    Route::get('roles/edit/{id}', [RoleController::class, 'show'])->name('edit');
+    Route::post('roles/update/{id}', [RoleController::class, 'update'])->name('update');
+    Route::get('roles/delete/{id}', [RoleController::class, 'destroy'])->name('delete');
+    
+    Route::get('users', [UserController::class, 'index'])->name('users');
+    Route::get('users/add', [UserController::class, 'create'])->name('add');
+    Route::post('users/store', [UserController::class, 'store'])->name('store');
+    Route::get('users/edit/{id}', [UserController::class, 'edit'])->name('edit');
+    Route::post('users/update/{id}', [UserController::class, 'update'])->name('update');
+    Route::get('users/delete/{id}', [UserController::class, 'destroy'])->name('delete');
+
+    Route::get('products', [ProductController::class, 'index'])->name('products');
+    Route::get('products/add', [ProductController::class, 'create'])->name('add');
+    Route::post('products/store', [ProductController::class, 'store'])->name('store');
+    Route::get('products/edit/{id}', [ProductController::class, 'edit'])->name('edit');
+    Route::post('products/update/{id}', [ProductController::class, 'update'])->name('update');
+    Route::get('products/delete/{id}', [ProductController::class, 'destroy'])->name('delete');
+
     Route::get('inbox-page', [PageController::class, 'inbox'])->name('inbox');
     Route::get('file-manager-page', [PageController::class, 'fileManager'])->name('file-manager');
     Route::get('point-of-sale-page', [PageController::class, 'pointOfSale'])->name('point-of-sale');

@@ -15,64 +15,73 @@ class SideMenu
         return [
             'dashboard' => [
                 'icon' => 'home',
-                'title' => 'Dashboard',
-                'sub_menu' => [
-                    'dashboard-overview-1' => [
-                        'icon' => '',
-                        'route_name' => 'dashboard-overview-1',
-                        'params' => [
-                            'layout' => 'side-menu',
-                        ],
-                        'title' => 'Overview 1'
-                    ],
-                    'dashboard-overview-2' => [
-                        'icon' => '',
-                        'route_name' => 'dashboard-overview-2',
-                        'params' => [
-                            'layout' => 'side-menu',
-                        ],
-                        'title' => 'Overview 2'
-                    ],
-                    'dashboard-overview-3' => [
-                        'icon' => '',
-                        'route_name' => 'dashboard-overview-3',
-                        'params' => [
-                            'layout' => 'side-menu',
-                        ],
-                        'title' => 'Overview 3'
-                    ]
-                ]
+                'route_name' => 'dashboard',
+                'params' => [
+                    'layout' => 'side-menu'
+                ],
+                'title' => 'Dashboard'
             ],
-            'menu-layout' => [
-                'icon' => 'box',
-                'title' => 'Menu Layout',
+
+            'users' => [
+                'icon' => 'users',
+                'title' => 'Users',
                 'sub_menu' => [
-                    'side-menu' => [
+                    'users' => [
                         'icon' => '',
-                        'route_name' => 'dashboard-overview-1',
+                        'route_name' => 'users',
                         'params' => [
                             'layout' => 'side-menu'
                         ],
-                        'title' => 'Side Menu'
+                        'title' => 'Manage users'
                     ],
-                    'simple-menu' => [
+                    'roles' => [
                         'icon' => '',
-                        'route_name' => 'dashboard-overview-1',
+                        'route_name' => 'roles',
                         'params' => [
-                            'layout' => 'simple-menu'
+                            'layout' => 'side-menu'
                         ],
-                        'title' => 'Simple Menu'
+                        'title' => 'Roles'
                     ],
-                    'top-menu' => [
-                        'icon' => '',
-                        'route_name' => 'dashboard-overview-1',
-                        'params' => [
-                            'layout' => 'top-menu'
-                        ],
-                        'title' => 'Top Menu'
-                    ]
+                    // 'users-layout-3' => [
+                    //     'icon' => '',
+                    //     'route_name' => 'users-layout-3',
+                    //     'params' => [
+                    //         'layout' => 'side-menu'
+                    //     ],
+                    //     'title' => 'Layout 3'
+                    // ]
                 ]
             ],
+            // 'menu-layout' => [
+            //     'icon' => 'box',
+            //     'title' => 'Menu Layout',
+            //     'sub_menu' => [
+            //         'side-menu' => [
+            //             'icon' => '',
+            //             'route_name' => 'dashboard-overview-1',
+            //             'params' => [
+            //                 'layout' => 'side-menu'
+            //             ],
+            //             'title' => 'Side Menu'
+            //         ],
+            //         'simple-menu' => [
+            //             'icon' => '',
+            //             'route_name' => 'dashboard-overview-1',
+            //             'params' => [
+            //                 'layout' => 'simple-menu'
+            //             ],
+            //             'title' => 'Simple Menu'
+            //         ],
+            //         'top-menu' => [
+            //             'icon' => '',
+            //             'route_name' => 'dashboard-overview-1',
+            //             'params' => [
+            //                 'layout' => 'top-menu'
+            //             ],
+            //             'title' => 'Top Menu'
+            //         ]
+            //     ]
+            // ],
             'inbox' => [
                 'icon' => 'inbox',
                 'route_name' => 'inbox',
@@ -89,13 +98,13 @@ class SideMenu
                 ],
                 'title' => 'File Manager'
             ],
-            'point-of-sale' => [
+            'products' => [
                 'icon' => 'credit-card',
-                'route_name' => 'point-of-sale',
+                'route_name' => 'products',
                 'params' => [
                     'layout' => 'side-menu'
                 ],
-                'title' => 'Point of Sale'
+                'title' => 'Products'
             ],
             'chat' => [
                 'icon' => 'message-square',
@@ -144,36 +153,7 @@ class SideMenu
                     ]
                 ]
             ],
-            'users' => [
-                'icon' => 'users',
-                'title' => 'Users',
-                'sub_menu' => [
-                    'users-layout-1' => [
-                        'icon' => '',
-                        'route_name' => 'users-layout-1',
-                        'params' => [
-                            'layout' => 'side-menu'
-                        ],
-                        'title' => 'Layout 1'
-                    ],
-                    'users-layout-2' => [
-                        'icon' => '',
-                        'route_name' => 'users-layout-2',
-                        'params' => [
-                            'layout' => 'side-menu'
-                        ],
-                        'title' => 'Layout 2'
-                    ],
-                    'users-layout-3' => [
-                        'icon' => '',
-                        'route_name' => 'users-layout-3',
-                        'params' => [
-                            'layout' => 'side-menu'
-                        ],
-                        'title' => 'Layout 3'
-                    ]
-                ]
-            ],
+            
             'profile' => [
                 'icon' => 'trello',
                 'title' => 'Profile',
@@ -607,36 +587,36 @@ class SideMenu
                     ]
                 ]
             ],
-            'widgets' => [
-                'icon' => 'hard-drive',
-                'title' => 'Widgets',
-                'sub_menu' => [
-                    'chart' => [
-                        'icon' => '',
-                        'route_name' => 'chart',
-                        'params' => [
-                            'layout' => 'side-menu'
-                        ],
-                        'title' => 'Chart'
-                    ],
-                    'slider' => [
-                        'icon' => '',
-                        'route_name' => 'slider',
-                        'params' => [
-                            'layout' => 'side-menu'
-                        ],
-                        'title' => 'Slider'
-                    ],
-                    'image-zoom' => [
-                        'icon' => '',
-                        'route_name' => 'image-zoom',
-                        'params' => [
-                            'layout' => 'side-menu'
-                        ],
-                        'title' => 'Image Zoom'
-                    ]
-                ]
-            ]
+            // 'settings' => [
+            //     'icon' => 'hard-drive',
+            //     'title' => 'Settings',
+            //     'sub_menu' => [
+            //         'roles' => [
+            //             'icon' => '',
+            //             'route_name' => 'roles',
+            //             'params' => [
+            //                 'layout' => 'side-menu'
+            //             ],
+            //             'title' => 'Roles'
+            //         ],
+            //         'teams' => [
+            //             'icon' => '',
+            //             'route_name' => 'teams',
+            //             'params' => [
+            //                 'layout' => 'side-menu'
+            //             ],
+            //             'title' => 'Teams'
+            //         ],
+            //         'image-zoom' => [
+            //             'icon' => '',
+            //             'route_name' => 'image-zoom',
+            //             'params' => [
+            //                 'layout' => 'side-menu'
+            //             ],
+            //             'title' => 'Image Zoom'
+            //         ]
+            //     ]
+            // ]
         ];
     }
 }
