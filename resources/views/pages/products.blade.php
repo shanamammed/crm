@@ -5,10 +5,10 @@
 @endsection
 
 @section('subcontent')
-    <h2 class="intro-y text-lg font-medium mt-10">Users</h2>
+    <h2 class="intro-y text-lg font-medium mt-10">Products</h2>
     <div class="grid grid-cols-12 gap-6 mt-5">
         <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
-            <a href="{{url('users/add')}}"><button class="btn btn-primary shadow-md mr-2">Add New User</button></a>
+            <a href="{{url('products/add')}}"><button class="btn btn-primary shadow-md mr-2">Add New Product</button></a>
            
             <div class="hidden md:block mx-auto text-slate-500">Showing 1 to 10 of 150 entries</div>
             <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
@@ -38,9 +38,11 @@
                                 <span class="font-medium whitespace-nowrap">{{ $product->name }}</span>
                             </td>
                             <td class="text-center">{{ $product->sku }}</td>
+                            <td class="text-center">BHD {{ $product->unit_price }}</td>
+                            <td class="text-center">{{ $product->tax_rate }}%</td>
                             <td class="w-40">
-                                <div class="flex items-center justify-center {{ $product->active ? 'text-success' : 'text-danger' }}">
-                                    <i data-feather="check-square" class="w-4 h-4 mr-2"></i> {{ $product->active  ? 'Active' : 'Inactive' }}
+                                <div class="flex items-center justify-center {{ $product->is_active ? 'text-success' : 'text-danger' }}">
+                                    <i data-feather="check-square" class="w-4 h-4 mr-2"></i> {{ $product->is_active  ? 'Active' : 'Inactive' }}
                                 </div>
                             </td>
                             <td class="table-report__action w-56">
@@ -48,9 +50,12 @@
                                     <a class="flex items-center mr-3" href="{{ url('products/edit/'.$product->id) }}">
                                         <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Edit
                                     </a>
-                                    <button class="flex items-center text-danger" type="button" data-tw-toggle="modal" data-tw-target="#delete-confirmation-modal" id="notification-with-buttons-below-toggle">
+                                   <!--  <a href="{{url('products/delete/'.$product->id)}}"><button class="flex items-center text-danger" type="button" data-tw-toggle="modal">
                                         <i data-feather="trash-2" class="w-4 h-4 mr-1"></i> Delete
-                                    </button>
+                                    </button></a> -->
+                                    <!-- <a id="programmatically-show-modal" href="javascript:;" class="btn btn-primary mr-1 mb-2">Show Modal</a> -->
+                                    <button type="button" id="MybtnModal" class="btn btn-primary">Open Modal Using jQuery</button>
+                                    <!-- </button> -->
                                     <!-- <button id="notification-with-buttons-below-toggle" class="btn btn-primary">Show Notification</button> -->
                                 </div>
                             </td>
@@ -110,19 +115,52 @@
         </div>
         <!-- END: Pagination -->
     </div>
-    <!-- BEGIN: Delete Confirmation Modal -->
-    <div id="notification-with-buttons-below-content" class="toastify-content hidden flex">
-        <i data-feather="trash-2" class="w-4 h-4 mr-1"></i>
-        <div class="ml-4 mr-5 sm:mr-20">
-           <form action="{{ url('products/delete/'.$user->id) }}"> 
-                <div class="font-medium">Delete User</div>
-                <div class="text-slate-500 mt-1">Are you sure to delete?</div>
-                <div class="mt-2.5">
-                    <a class="btn btn-primary py-1 px-2 mr-2" href="">Yes</a>
-                    <a class="btn btn-outline-secondary py-1 px-2" href="">No</a>
+   <!-- BEGIN: Modal Content -->
+    <div id="programmatically-modal" class="modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body p-10 text-center">
+                    <!-- BEGIN: Hide Modal Toggle -->
+                    <a id="programmatically-hide-modal" href="javascript:;" class="btn btn-primary mr-1">Hide Modal</a>
+                    <!-- END: Hide Modal Toggle -->
+                    <!-- BEGIN: Toggle Modal Toggle -->
+                    <a id="programmatically-toggle-modal" href="javascript:;" class="btn btn-primary mr-1">Toggle Modal</a>
+                    <!-- END: Toggle Modal Toggle -->
                 </div>
-           </form>
+            </div>
         </div>
     </div>
-    <!-- END: Delete Confirmation Modal -->
+    <!-- END: Modal Content -->
+
+    <div class="modal fade" id="Mymodal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button> 
+                <h4 class="modal-title">Notification</h4>                                                             
+            </div> 
+            <div class="modal-body">
+                Are you sure you want to continue?
+            </div>   
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                               
+            </div>
+        </div>                                                                       
+    </div>                                          
+</div>
 @endsection
+@push('css')
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous"></script>
+@endpush
+@push('scripts')
+<script>
+$(document).ready(function(){
+    $('#MybtnModal').click(function(){
+        alert('ok');
+        // $('#Mymodal').modal('show')
+    });
+});
+</script>
+@endpush

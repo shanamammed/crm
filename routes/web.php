@@ -6,6 +6,7 @@ use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\RoleController;
 use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\admin\ProductController;
+use App\Http\Controllers\admin\CompanyController;
 
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\DarkModeController;
@@ -42,20 +43,27 @@ Route::middleware('auth')->group(function() {
     Route::get('roles/edit/{id}', [RoleController::class, 'show'])->name('edit');
     Route::post('roles/update/{id}', [RoleController::class, 'update'])->name('update');
     Route::get('roles/delete/{id}', [RoleController::class, 'destroy'])->name('delete');
-    
+    /*USER MODULE*/
     Route::get('users', [UserController::class, 'index'])->name('users');
     Route::get('users/add', [UserController::class, 'create'])->name('add');
     Route::post('users/store', [UserController::class, 'store'])->name('store');
     Route::get('users/edit/{id}', [UserController::class, 'edit'])->name('edit');
     Route::post('users/update/{id}', [UserController::class, 'update'])->name('update');
     Route::get('users/delete/{id}', [UserController::class, 'destroy'])->name('delete');
-
+    /*PRODUCT MODULE*/
     Route::get('products', [ProductController::class, 'index'])->name('products');
     Route::get('products/add', [ProductController::class, 'create'])->name('add');
     Route::post('products/store', [ProductController::class, 'store'])->name('store');
     Route::get('products/edit/{id}', [ProductController::class, 'edit'])->name('edit');
     Route::post('products/update/{id}', [ProductController::class, 'update'])->name('update');
-    Route::get('products/delete/{id}', [ProductController::class, 'destroy'])->name('delete');
+    Route::get('products/delete/{id}', [ProductController::class, 'destroy'])->name('delete');   
+    /*COMPANY MODULE*/
+    Route::get('companies', [CompanyController::class, 'index'])->name('companies');
+    Route::get('companies/add', [CompanyController::class, 'create'])->name('add');
+    Route::post('companies/store', [CompanyController::class, 'store'])->name('store');
+    Route::get('companies/edit/{id}', [CompanyController::class, 'edit'])->name('edit');
+    Route::post('companies/update/{id}', [CompanyController::class, 'update'])->name('update');
+    Route::get('companies/delete/{id}', [CompanyController::class, 'destroy'])->name('delete');
 
     Route::get('inbox-page', [PageController::class, 'inbox'])->name('inbox');
     Route::get('file-manager-page', [PageController::class, 'fileManager'])->name('file-manager');

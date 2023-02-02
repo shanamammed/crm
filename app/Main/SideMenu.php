@@ -42,15 +42,15 @@ class SideMenu
                         ],
                         'title' => 'Roles'
                     ],
-                    // 'users-layout-3' => [
-                    //     'icon' => '',
-                    //     'route_name' => 'users-layout-3',
-                    //     'params' => [
-                    //         'layout' => 'side-menu'
-                    //     ],
-                    //     'title' => 'Layout 3'
-                    // ]
                 ]
+            ],
+            'companies' => [
+                'icon' => 'archive',
+                'route_name' => 'companies',
+                'params' => [
+                    'layout' => 'side-menu'
+                ],
+                'title' => 'Companies'
             ],
             // 'menu-layout' => [
             //     'icon' => 'box',
