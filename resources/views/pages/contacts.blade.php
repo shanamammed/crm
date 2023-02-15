@@ -5,10 +5,10 @@
 @endsection
 
 @section('subcontent')
-    <h2 class="intro-y text-lg font-medium mt-10">Companies</h2>
+    <h2 class="intro-y text-lg font-medium mt-10">CONTACTS</h2>
     <div class="grid grid-cols-12 gap-6 mt-5">
         <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
-            <a href="{{url('companies/add')}}"><button class="btn btn-primary shadow-md mr-2">Add New Company</button></a>
+            <a href="{{url('contacts/add')}}"><button class="btn btn-primary shadow-md mr-2">Add New Contact</button></a>
             
             <div class="hidden md:block mx-auto text-slate-500"></div>
             <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
@@ -24,34 +24,39 @@
                 <thead>
                     <tr>
                         <th class="whitespace-nowrap">OWNER</th>
-                        <th class="whitespace-nowrap">COMPANY NAME</th>
+                        <th class="whitespace-nowrap">CONTATCT</th>
                         <th class="text-center whitespace-nowrap">EMAIL</th>
-                        <th class="text-center whitespace-nowrap">DOMAIN</th>
-                        <th class="text-center whitespace-nowrap">ACTIONS</th>
-                        <th class="text-center whitespace-nowrap">CREATED AT</th>
+                        <th class="text-center whitespace-nowrap">PHONE</th>
+                        <th class="text-center whitespace-nowrap">SOURCE</th>
+                        <th class="text-center whitespace-nowrap">ACTION</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                   @if(count($companies)>0)   
-                    @foreach ($companies as $company)
+                   @if(count($contacts)>0)   
+                    @foreach ($contacts as $contact)
                         <tr class="intro-x">
                             <td class="w-40">
                                 <div class="flex">
                                     <div class="w-10 h-10 image-fit zoom-in">
-                                        <img alt="Rubick Tailwind HTML Admin Template" class="tooltip rounded-full" src="{{ asset('dist/images/default.jpg') }}" title="{{ $company->owner_name }}">
+                                        <img alt="SayG" class="tooltip rounded-full" src="{{ asset('dist/images/default.jpg') }}" title="{{ $contact->owner_name }}">
                                     </div>
                                 </div>
                             </td>
-                            <td class="text-center">{{ $company->name }}</td>
-                            <td class="text-center">{{ $company->email }}</td>
-                            <td class="text-center">{{ $company->domain }}</td>
+                            <td class="text-center">{{ $contact->first_name.' '.$contact->last_name }}</td>
+                            <td class="text-center">{{ $contact->email }}</td>
+                            <td class="text-center">
+                                @foreach($contact->phones as $phone)
+                                 {{$phone->mobile}}<br>
+                                @endforeach
+                            </td>
+                            <td class="text-center">{{$contact->source}}</td>
                             <td class="table-report__action w-56">
                                 <div class="flex justify-center items-center">
-                                    <a class="flex items-center mr-3" href="{{ url('companies/edit/'.$company->id) }}">
+                                    <a class="flex items-center mr-3" href="{{ url('contacts/edit/'.$contact->id) }}">
                                         <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Edit
                                     </a>
-                                    <a href="{{url('companies/delete/'.$company->id)}}"><button class="flex items-center text-danger" type="button">
+                                    <a href="{{url('contacts/delete/'.$contact->id)}}"><button class="flex items-center text-danger" type="button">
                                         <i data-feather="trash-2" class="w-4 h-4 mr-1"></i> Delete
                                     </button></a>
                                     <!-- <a id="programmatically-show-modal" href="javascript:;" class="btn btn-primary mr-1 mb-2">Show Modal</a> -->
@@ -60,11 +65,10 @@
                                     <!-- <button id="notification-with-buttons-below-toggle" class="btn btn-primary">Show Notification</button> -->
                                 </div>
                             </td>
-                            <td class="text-center">{{ date('d M Y, h:i A',strtotime($company->created_at)) }}</td>
                         </tr>
                     @endforeach
                    @else
-                   <tr><td class="text-center" colspan="5">No data found</td></tr> 
+                   <tr><td class="text-center" colspan="6">No data found</td></tr> 
                    @endif
                 </tbody>
             </table>

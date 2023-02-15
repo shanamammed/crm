@@ -50,11 +50,11 @@
                                     <a class="flex items-center mr-3" href="{{ url('products/edit/'.$product->id) }}">
                                         <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Edit
                                     </a>
-                                   <!--  <a href="{{url('products/delete/'.$product->id)}}"><button class="flex items-center text-danger" type="button" data-tw-toggle="modal">
+                                    <a href="{{url('products/delete/'.$product->id)}}"><button class="flex items-center text-danger" type="button" data-tw-toggle="modal">
                                         <i data-feather="trash-2" class="w-4 h-4 mr-1"></i> Delete
-                                    </button></a> -->
+                                    </button></a>
                                     <!-- <a id="programmatically-show-modal" href="javascript:;" class="btn btn-primary mr-1 mb-2">Show Modal</a> -->
-                                    <button type="button" id="MybtnModal" class="btn btn-primary">Open Modal Using jQuery</button>
+                                    <!-- <button type="button" id="MybtnModal" class="btn btn-primary">Open Modal Using jQuery</button> -->
                                     <!-- </button> -->
                                     <!-- <button id="notification-with-buttons-below-toggle" class="btn btn-primary">Show Notification</button> -->
                                 </div>

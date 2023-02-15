@@ -127,7 +127,16 @@ class CompanyController extends Controller
      */
     public function edit($id)
     {
-        //
+        $company = Company::find($id);
+        $user    = auth::user()->id;
+        $owners  = User::select('id','name')->where('active','1')
+                       ->orderBy('name','asc')->get();
+        $contacts = Contact::select('id','first_name','last_name')
+                      ->orderBy('first_name','asc')->get();
+        $company_contacts = DB::table('company_contacts')->select('contact_id')->where('company_id',$id)->get();
+        $deals = Deal::select('id','name')->orderBy('name','asc')->get();
+        $company_deals = DB::table('deal_companies')->select('deal_id')->where('company_id',$id)->get();
+        return view('pages.edit_company',compact('company','user','owners','contacts','deals','company_deals','company_contacts'));
     }
 
     /**
@@ -141,8 +150,8 @@ class CompanyController extends Controller
     {
         $validator = Validator::make($request->all(),  [
             'name' => 'required',
-            'domain' => 'required|unique:companies,domain',
-            'owner' => 'required'
+            'domain' => 'required|unique:companies,domain,'.$id,
+            'owner' => 'required',
         ],
         [ 
             'domain.domain' => 'Please enter a valid domain',
@@ -157,16 +166,15 @@ class CompanyController extends Controller
         }
         else{     
             $company = Company::find($id);       
-            $company = Company::insert(['name' => $request->input('name'),
-                                  'email' => $request->input('email'),
-                                  'domain' => $request->input('domain'),
-                                  'user_id' => $request->input('owner'),
-                                  'owner_assigned_date' => date('Y-m-d H:i:s'),
-                                  'created_by' => auth::user()->id,
-                                  'is_active' => '1',
-                                  'created_at' => date('Y-m-d H:i:s')  
-                                 ]);
-            if($company)
+            $company->name = $request->input('name');
+            $company->email = $request->input('email');
+            $company->domain = $request->input('domain');
+            $company->user_id = $request->input('owner');
+            $company->created_by = auth::user()->id;
+            $company->is_active   = isset($request->active) ? "1" : "0";
+            $company->updated_at= date('Y-m-d H:i:s');
+            $result = $company->save();
+            if($result)
             {
                 DB::table('deal_companies')->where('company_id',$id)->delete();
                 if($request->deals)

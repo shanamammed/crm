@@ -7,6 +7,9 @@ use App\Http\Controllers\admin\RoleController;
 use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\admin\ProductController;
 use App\Http\Controllers\admin\CompanyController;
+use App\Http\Controllers\admin\ContactController;
+use App\Http\Controllers\admin\DealController;
+use App\Http\Controllers\admin\ActivityController;
 
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\DarkModeController;
@@ -64,6 +67,29 @@ Route::middleware('auth')->group(function() {
     Route::get('companies/edit/{id}', [CompanyController::class, 'edit'])->name('edit');
     Route::post('companies/update/{id}', [CompanyController::class, 'update'])->name('update');
     Route::get('companies/delete/{id}', [CompanyController::class, 'destroy'])->name('delete');
+    
+    Route::get('contacts', [ContactController::class, 'index'])->name('contacts');
+    Route::get('contacts/add', [ContactController::class, 'create'])->name('add');
+    Route::post('contacts/store', [ContactController::class, 'store'])->name('store');
+    Route::get('contacts/edit/{id}', [ContactController::class, 'edit'])->name('edit');
+    Route::post('contacts/update/{id}', [ContactController::class, 'update'])->name('update');
+    Route::get('contacts/delete/{id}', [ContactController::class, 'destroy'])->name('delete');
+
+    Route::get('deals', [DealController::class, 'index'])->name('deals');
+    Route::get('deals/add', [DealController::class, 'create'])->name('add');
+    Route::post('deals/store', [DealController::class, 'store'])->name('store');
+    Route::get('deals/edit/{id}', [DealController::class, 'edit'])->name('edit');
+    Route::post('deals/update/{id}', [DealController::class, 'update'])->name('update');
+    Route::get('deals/delete/{id}', [DealController::class, 'destroy'])->name('delete');
+    Route::get('deals/details/{id}', [DealController::class, 'show'])->name('details');
+
+    Route::get('activities', [ActivityController::class, 'index'])->name('activities');
+    Route::get('activities/add', [ActivityController::class, 'create'])->name('add');
+    Route::post('activities/store', [ActivityController::class, 'store'])->name('store');
+    Route::get('activities/edit/{id}',[ActivityController::class, 'edit'])->name('edit');
+    Route::post('activities/update/{id}', [ActivityController::class, 'update'])->name('update');
+    Route::get('activities/delete/{id}', [ActivityController::class, 'destroy'])->name('delete');
+    Route::get('activities/details/{id}', [ActivityController::class, 'show'])->name('details');
 
     Route::get('inbox-page', [PageController::class, 'inbox'])->name('inbox');
     Route::get('file-manager-page', [PageController::class, 'fileManager'])->name('file-manager');
