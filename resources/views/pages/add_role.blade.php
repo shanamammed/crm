@@ -1,7 +1,7 @@
 @extends('../layout/' . $layout)
 
 @section('subhead')
-    <title>Regular Form - Rubick - Tailwind HTML Admin Template</title>
+    <title>CRM-SayG</title>
 @endsection
 
 @section('subcontent')
@@ -14,10 +14,10 @@
             <div class="intro-y box">
                 <div class="flex flex-col sm:flex-row items-center p-5 border-b border-slate-200/60 dark:border-darkmode-400">
                     <h2 class="font-medium text-base mr-auto">Add Role</h2>
-                    <div class="form-check form-switch w-full sm:w-auto sm:ml-auto mt-3 sm:mt-0">
+                   <!--  <div class="form-check form-switch w-full sm:w-auto sm:ml-auto mt-3 sm:mt-0">
                         <label class="form-check-label ml-0" for="show-example-6">Show example code</label>
                         <input id="show-example-6" data-target="#vertical-form" class="show-code form-check-input mr-0 ml-3" type="checkbox">
-                    </div>
+                    </div> -->
                 </div>
                 <div id="vertical-form" class="p-5">
                  <form method="post" action="{{ url('roles/store') }}"> 
@@ -35,7 +35,7 @@
                             <div class="form-check mt-2">
                                <!--  <input id="checkbox-switch-{{$permission->id}}" class="form-check-input" type="checkbox" value="{{ $permission->id }}" name="permission[]" >
                                 <label class="form-check-label" for="checkbox-switch-1">{{ $permission->name }}</label> -->
-                                <label>{{ Form::checkbox('permission[]', $permission->id, false, array('class' => 'name')) }}
+                                <label>{{ Form::checkbox('permission[]', $permission->id, true, array('class' => 'name')) }}
                                 {{ $permission->name }}</label>
                             </div>
                             @endforeach

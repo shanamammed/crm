@@ -62,13 +62,19 @@ class UserController extends Controller
                         ->withErrors($validator);
         }
         else{            
-            $user = User::create(['name' => $request->input('name'),
-                                  'email' => $request->input('email'),
-                                  'password' => bcrypt($request->input('password')),
-                                  'active' => '1'  
-                                 ]);
-            $user->assignRole($request->input('roles'));
-        
+            $user = new User;
+            $user->name = $request->input('name');
+            $user->email = $request->input('email');
+            $user->password = bcrypt($request->input('password'));
+            $user->active = 1;  
+            $user->save();
+
+            $user->roles()->attach($request->input('roles'));
+            $user_perm = DB::table('roles_permissions')->select('permission_id')
+                     ->whereIn('role_id',$request->input('roles'))
+                     ->pluck('permission_id')->toArray();
+               
+            $user->permissions()->attach($user_perm);
             return redirect()->route('users')
                             ->with('success','User created successfully');
         }      

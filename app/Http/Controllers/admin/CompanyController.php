@@ -72,15 +72,16 @@ class CompanyController extends Controller
                         ->withErrors($validator);
         }
         else{            
-            $company = Company::insert(['name' => $request->input('name'),
-                                  'email' => $request->input('email'),
-                                  'domain' => $request->input('domain'),
-                                  'user_id' => $request->input('owner'),
-                                  'owner_assigned_date' => date('Y-m-d H:i:s'),
-                                  'created_by' => auth::user()->id,
-                                  'is_active' => '1',
-                                  'created_at' => date('Y-m-d H:i:s')  
-                                 ]);
+            $company = new Company;
+            $company->name = $request->input('name');
+            $company->email = $request->input('email');
+            $company->domain = $request->input('domain');
+            $company->user_id = $request->input('owner');
+            $company->owner_assigned_date = date('Y-m-d H:i:s');
+            $company->created_by = auth::user()->id;
+            $company->is_active = '1';
+            $company->created_at = date('Y-m-d H:i:s');  
+                              
             if($company)
             {
                 if($request->deals)

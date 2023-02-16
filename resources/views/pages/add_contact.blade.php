@@ -15,7 +15,7 @@
             @csrf
             <div class="intro-y box p-5">
                 <div>
-                    <label for="crud-form-1" class="form-label">Fist Name<span style="color:red;">*</span></label>
+                    <label for="crud-form-1" class="form-label">First Name<span style="color:red;">*</span></label>
                     <input id="crud-form-1" name="first_name" type="text" class="form-control w-full" placeholder="First Name" required>
                     @error('first_name') <span class="error" style="color:red;">{{ $message }}</span> @enderror
                 </div><br>
@@ -73,7 +73,7 @@
                     <label for="crud-form-3" class="form-label">Deals</label>
                     <select data-placeholder="Select the deal" name="deals[]" class="tom-select w-full" multiple>
                         @foreach($deals as $deal)
-                        <option value="{{$deal->id}}" selected>{{$deal->name}}</option>
+                        <option value="{{$deal->id}}">{{$deal->name}}</option>
                         @endforeach
                     </select>
                     @error('deals') <span class="error" style="color:red;">{{ $message }}</span> @enderror
@@ -82,7 +82,7 @@
                     <label for="crud-form-3" class="form-label">Companies</label>
                     <select data-placeholder="Select the contact" name="companies[]" class="tom-select w-full" multiple>
                         @foreach($companies as $company)
-                        <option value="{{$company->id}}" selected>{{$company->name}}</option>
+                        <option value="{{$company->id}}">{{$company->name}}</option>
                         @endforeach
                     </select>
                     @error('companies') <span class="error" style="color:red;">{{ $message }}</span> @enderror

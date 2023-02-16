@@ -133,12 +133,12 @@ class ActivityController extends Controller
                                      ]);
                     }
                 }
-                return redirect()->route('deals')
+                return redirect()->route('activities')
                             ->with('success','Activity created successfully');
             }  
             else
             {      
-                 return redirect()->route('deals')          
+                 return redirect()->route('activities')          
                              ->with('error','Failed to create activity');
             }                 
         }    

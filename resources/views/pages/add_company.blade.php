@@ -43,7 +43,7 @@
                     <label for="crud-form-3" class="form-label">Deals</label>
                     <select data-placeholder="Select the deal" name="deals[]" class="tom-select w-full" multiple>
                         @foreach($deals as $deal)
-                        <option value="{{$deal->id}}" selected>{{$deal->name}}</option>
+                        <option value="{{$deal->id}}">{{$deal->name}}</option>
                         @endforeach
                     </select>
                     @error('deals') <span class="error" style="color:red;">{{ $message }}</span> @enderror
@@ -52,7 +52,7 @@
                     <label for="crud-form-3" class="form-label">Contacts</label>
                     <select data-placeholder="Select the contact" name="contacts[]" class="tom-select w-full" multiple>
                         @foreach($contacts as $contact)
-                        <option value="{{$contact->id}}" selected>{{$contact->name}}</option>
+                        <option value="{{$contact->id}}">{{$contact->name}}</option>
                         @endforeach
                     </select>
                     @error('contacts') <span class="error" style="color:red;">{{ $message }}</span> @enderror

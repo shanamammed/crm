@@ -17,6 +17,11 @@ use Validator;
 
 class ContactController extends Controller
 {
+    public function __construct()
+    {
+       $this->middleware('auth'); 
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -42,14 +47,19 @@ class ContactController extends Controller
      */
     public function create()
     {
-        $user    = auth::user()->id;
-        $owners  = User::select('id','name')->where('active','1')
-                       ->orderBy('name','asc')->get();
-        $companies = Company::select('id','name')
-                      ->orderBy('name','asc')->get();
-        $deals = Deal::select('id','name')->orderBy('name','asc')->get();
-        $sources = DB::table('sources')->select('id','name')->get();
-        return view('pages.add_contact',compact('owners','companies','deals','user','sources')); 
+        // if(auth::user()->can('contact-create')) {
+            $user    = auth::user()->id;
+            $owners  = User::select('id','name')->where('active','1')
+                           ->orderBy('name','asc')->get();
+            $companies = Company::select('id','name')
+                          ->orderBy('name','asc')->get();
+            $deals = Deal::select('id','name')->orderBy('name','asc')->get();
+            $sources = DB::table('sources')->select('id','name')->get();
+            return view('pages.add_contact',compact('owners','companies','deals','user','sources')); 
+        // } else {
+        //     print_r('ok');
+        // }
+        
     }
 
     /**

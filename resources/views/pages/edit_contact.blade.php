@@ -75,7 +75,7 @@
                     <label for="crud-form-3" class="form-label">Deals</label>
                     <select data-placeholder="Select the deal" name="deals[]" class="tom-select w-full" multiple>
                         @foreach($deals as $deal)
-                         @foreach($contact_delas as $cont_deal)
+                         @foreach($contact_deals as $cont_deal)
                           <option value="{{$deal->id}}" @if($deal->id == $cont_deal->deal_id)selected="selected"@endif>{{$deal->name}}</option>
                          @endforeach 
                         @endforeach
