@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 use App\Models\User;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class UserSeeder extends Seeder
 {
@@ -16,19 +18,28 @@ class UserSeeder extends Seeder
     public function run()
     {
         // Default credentials
-        \App\Models\User::insert([
+        $user = User::insert([
             [ 
-                'name' => 'Left4code',
-                'email' => 'midone@left4code.com',
+                'name' => 'Admin',
+                'email' => 'admin@crm.bh',
                 'email_verified_at' => now(),
-                'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+                'role_id' => '1',
+                'password' => bcrypt('admin@crm'), 
                 'gender' => 'male',
                 'active' => 1,
                 'remember_token' => Str::random(10)
             ]
         ]);
-
-        // Fake users
+        
+         // Fake users
         User::factory()->times(9)->create();
+
+        $role = Role::create(['name' => 'Admin']);
+     
+        $permissions = Permission::pluck('id','id')->all();
+   
+        $role->syncPermissions($permissions);
+     
+        $user->assignRole([$role->id]);
     }
 }

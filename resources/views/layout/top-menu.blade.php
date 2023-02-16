@@ -11,9 +11,9 @@
         <div class="top-bar-boxed flex items-center">
             <!-- BEGIN: Logo -->
             <a href="" class="-intro-x hidden md:flex">
-                <img alt="Rubick Tailwind HTML Admin Template" class="w-6" src="{{ asset('dist/images/logo.svg') }}">
+                <img alt="Rubick Tailwind HTML Admin Template" class="w-6" src="{{ asset('dist/images/default.jpg') }}">
                 <span class="text-white text-lg ml-3">
-                    Rubick
+                    SayG
                 </span>
             </a>
             <!-- END: Logo -->
