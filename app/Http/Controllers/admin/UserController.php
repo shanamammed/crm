@@ -20,9 +20,9 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $users = User::orderBy('id','DESC')->paginate(5);
+        $users = User::orderBy('id','DESC')->paginate(10);
         return view('pages.users',compact('users'))
-            ->with('i', ($request->input('page', 1) - 1) * 5);
+            ->with('i', ($request->input('page', 1) - 1) * 10);
     }
 
     /**
@@ -70,9 +70,9 @@ class UserController extends Controller
             $user->save();
 
             $user->roles()->attach($request->input('roles'));
-            $user_perm = DB::table('roles_permissions')->select('permission_id')
-                     ->whereIn('role_id',$request->input('roles'))
-                     ->pluck('permission_id')->toArray();
+            $user_perm = DB::table('roles_permissions')->select('roles_permissions.permission_id')
+                     ->whereIn('roles_permissions.role_id',$request->input('roles'))
+                     ->groupBy('roles_permissions.permission_id')->pluck('roles_permissions.permission_id')->toArray();
                
             $user->permissions()->attach($user_perm);
             return redirect()->route('users')
@@ -120,7 +120,6 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users,email,'.$id,
             'roles' => 'required',
-            'active'=> 'required'
         ],
         [ 
             'email.email' => 'Please enter a valid email',
@@ -135,9 +134,20 @@ class UserController extends Controller
         }
         else{            
             $user = User::find($id);
-            $user->update($input);
-            DB::table('model_has_roles')->where('model_id',$id)->delete(); 
-            $user->assignRole($request->input('roles'));
+            $user->name = $request->input('name');
+            $user->email = $request->input('email');
+            $user->active= isset($request->active) ? "1" : "0";
+            $user->save();
+
+            DB::table('users_roles')->where('user_id',$id)->delete(); 
+            DB::table('users_permissions')->where('user_id',$id)->delete(); 
+
+            $user->roles()->attach($request->input('roles'));
+            $user_perm = DB::table('roles_permissions')->select('roles_permissions.permission_id')
+                     ->whereIn('roles_permissions.role_id',$request->input('roles'))
+                     ->groupBy('roles_permissions.permission_id')->pluck('roles_permissions.permission_id')->toArray();
+               
+            $user->permissions()->attach($user_perm);
         
             return redirect()->route('users')
                             ->with('success','User updated successfully');
@@ -152,6 +162,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        User::find($id)->delete();
+        return redirect()->route('users')
+                        ->with('success','User deleted successfully');
     }
 }
