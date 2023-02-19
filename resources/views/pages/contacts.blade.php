@@ -29,7 +29,9 @@
                         <th class="text-center whitespace-nowrap">EMAIL</th>
                         <th class="text-center whitespace-nowrap">PHONE</th>
                         <th class="text-center whitespace-nowrap">SOURCE</th>
+                      @canany(['contact-edit', 'contact-delete'])   
                         <th class="text-center whitespace-nowrap">ACTION</th>
+                        @endcan
                     </tr>
                 </thead>
 
@@ -52,20 +54,26 @@
                                 @endforeach
                             </td>
                             <td class="text-center">{{$contact->source}}</td>
+                            @canany(['contact-edit', 'contact-delete']) 
                             <td class="table-report__action w-56">
                                 <div class="flex justify-center items-center">
+                                    @can('contact-edit')
                                     <a class="flex items-center mr-3" href="{{ url('contacts/edit/'.$contact->id) }}">
                                         <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Edit
                                     </a>
+                                    @endcan
+                                    @can('contact-delete')
                                     <a href="{{url('contacts/delete/'.$contact->id)}}"><button class="flex items-center text-danger" type="button">
                                         <i data-feather="trash-2" class="w-4 h-4 mr-1"></i> Delete
                                     </button></a>
+                                    @endcan
                                     <!-- <a id="programmatically-show-modal" href="javascript:;" class="btn btn-primary mr-1 mb-2">Show Modal</a> -->
                                     <!-- <button type="button" id="MybtnModal" class="btn btn-primary">Open Modal Using jQuery</button> -->
                                     <!-- </button> -->
                                     <!-- <button id="notification-with-buttons-below-toggle" class="btn btn-primary">Show Notification</button> -->
                                 </div>
                             </td>
+                            @endcan
                         </tr>
                     @endforeach
                    @else

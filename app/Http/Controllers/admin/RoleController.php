@@ -22,8 +22,14 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $roles = Role::orderBy('id','DESC')->get();
-        return view('pages.roles',compact('roles'));
+        if (auth()->user()->can('role-list')) 
+        {
+            $roles = Role::orderBy('id','DESC')->get();
+            return view('pages.roles',compact('roles'));
+        } else {
+            return view('pages.error-page');
+        }
+        
     }
 
     /**

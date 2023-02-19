@@ -24,11 +24,17 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        $companies = Company::select('companies.id','companies.name','domain','companies.email','users.name as owner_name','companies.created_at')
+        if (auth()->user()->can('company-list')) 
+        {
+            $companies = Company::select('companies.id','companies.name','domain','companies.email','users.name as owner_name','companies.created_at')
             ->join('users','users.id','=','companies.user_id')
             ->orderBy('companies.id','desc')
             ->get();
-        return view('pages.companies',compact('companies'));
+           return view('pages.companies',compact('companies'));
+        } else {
+            return view('pages.error-page');
+        }
+        
     }
 
     /**

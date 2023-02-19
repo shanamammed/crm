@@ -24,13 +24,18 @@ class DealController extends Controller
      */
     public function index()
     {
-        $deals = Deal::select('deals.id','deals.name','amount','deals.status',
-            'expected_close_date','users.name as owner_name','deals.created_at','stages.name as stage')
-            ->join('users','users.id','=','deals.user_id')
-            ->join('stages','stages.id','=','deals.stage_id','left')
-            ->orderBy('deals.id','desc')
-            ->get();
-        return view('pages.deals',compact('deals'));
+        if (auth()->user()->can('deal-list')) 
+        {    
+            $deals = Deal::select('deals.id','deals.name','amount','deals.status',
+                'expected_close_date','users.name as owner_name','deals.created_at','stages.name as stage')
+                ->join('users','users.id','=','deals.user_id')
+                ->join('stages','stages.id','=','deals.stage_id','left')
+                ->orderBy('deals.id','desc')
+                ->get();
+            return view('pages.deals',compact('deals'));
+        } else {
+            return view('pages.error-page');
+        }    
     }
 
     /**
