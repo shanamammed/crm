@@ -19,9 +19,15 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        $products = Product::orderBy('id','DESC')->paginate(5);
-        return view('pages.products',compact('products'))
-            ->with('i', ($request->input('page', 1) - 1) * 5);
+        if (auth()->user()->can('product-list')) 
+        {
+            $products = Product::orderBy('id','DESC')->paginate(10);
+            return view('pages.products',compact('products'))
+            ->with('i', ($request->input('page', 1) - 1) * 10);
+        } else {
+            return view('pages.error-page');
+        }
+        
     }
 
     /**

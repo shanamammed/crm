@@ -25,12 +25,17 @@ class ActivityController extends Controller
      */
     public function index()
     {
-        $activities = Activity::select('activities.id','activities.title','due_date','users.name as owner_name','activities.created_at','activity_types.name as activity_type')
+        if (auth()->user()->can('activity-list')) 
+        {
+          $activities = Activity::select('activities.id','activities.title','due_date','users.name as owner_name','activities.created_at','activity_types.name as activity_type')
             ->join('users','users.id','=','activities.user_id')
             ->join('activity_types','activity_types.id','=','activities.activity_type_id','left')
             ->orderBy('activities.id','desc')
             ->get();
-        return view('pages.activities',compact('activities'));
+         return view('pages.activities',compact('activities'));
+       } else {
+         return view('pages.error-page');
+       }
     }
 
     /**

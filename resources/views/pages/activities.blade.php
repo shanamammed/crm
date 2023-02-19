@@ -7,9 +7,11 @@
 @section('subcontent')
     <h2 class="intro-y text-lg font-medium mt-10">ACTIVITIES</h2>
     <div class="grid grid-cols-12 gap-6 mt-5">
+
         <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
+            @can('activity-create')
             <a href="{{url('activities/add')}}"><button class="btn btn-primary shadow-md mr-2">Add New Activity</button></a>
-            
+            @endcan
             <div class="hidden md:block mx-auto text-slate-500"></div>
             <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
                 <div class="w-56 relative text-slate-500">
@@ -28,7 +30,8 @@
                         <th class="text-center whitespace-nowrap">ACTIVITY TYPE</th>
                         <th class="text-center whitespace-nowrap">DUE DATE</th>
                         <th class="text-center whitespace-nowrap">CREATED AT</th>
-                        <th class="text-center whitespace-nowrap">ACTIONS</th>                       
+                        @canany(['deal-edit', 'deal-delete'])  
+                        <th class="text-center whitespace-nowrap">ACTIONS</th> @endcan                            
                     </tr>
                 </thead>
 
@@ -47,21 +50,26 @@
                             <td class="text-center">{{ $activity->activity_type }}</td>
                             <td class="text-center">{{ date('d M Y',strtotime($activity->due_date)) }}</td>
                             <td class="text-center">{{ date('d M Y, h:i A',strtotime($activity->created_at)) }}</td>
+                            @canany(['deal-edit', 'deal-delete']) 
                             <td class="table-report__action w-56">
                                 <div class="flex justify-center items-center">
+                                    @can('activity-edit')
                                     <a class="flex items-center mr-3" href="{{ url('activities/edit/'.$activity->id) }}">
                                         <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Edit
                                     </a>
+                                    @endcan
+                                    @can('activity-delete')
                                     <a href="{{url('activities/delete/'.$activity->id)}}"><button class="flex items-center text-danger" type="button">
                                         <i data-feather="trash-2" class="w-4 h-4 mr-1"></i> Delete
                                     </button></a>
+                                    @endcan
                                     <!-- <a id="programmatically-show-modal" href="javascript:;" class="btn btn-primary mr-1 mb-2">Show Modal</a> -->
                                     <!-- <button type="button" id="MybtnModal" class="btn btn-primary">Open Modal Using jQuery</button> -->
                                     <!-- </button> -->
                                     <!-- <button id="notification-with-buttons-below-toggle" class="btn btn-primary">Show Notification</button> -->
                                 </div>
                             </td>
-                            
+                            @endcan
                         </tr>
                     @endforeach
                    @else

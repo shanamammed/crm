@@ -52,7 +52,7 @@
                     <label for="crud-form-3" class="form-label">Contacts</label>
                     <select data-placeholder="Select the contact" name="contacts[]" class="tom-select w-full" multiple>
                         @foreach($contacts as $contact)
-                        <option value="{{$contact->id}}">{{$contact->name}}</option>
+                        <option value="{{$contact->id}}">{{$contact->first_name.' '.$contact->last_name}}</option>
                         @endforeach
                     </select>
                     @error('contacts') <span class="error" style="color:red;">{{ $message }}</span> @enderror

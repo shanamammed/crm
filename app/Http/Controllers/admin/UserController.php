@@ -20,9 +20,14 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $users = User::orderBy('id','DESC')->paginate(10);
-        return view('pages.users',compact('users'))
-            ->with('i', ($request->input('page', 1) - 1) * 10);
+        if (auth()->user()->can('role-list')) 
+        {
+            $users = User::orderBy('id','DESC')->paginate(10);
+            return view('pages.users',compact('users'))
+              ->with('i', ($request->input('page', 1) - 1) * 10);
+        } else {
+             return view('pages.error-page');
+        }       
     }
 
     /**

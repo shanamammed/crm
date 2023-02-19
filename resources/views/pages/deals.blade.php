@@ -8,8 +8,9 @@
     <h2 class="intro-y text-lg font-medium mt-10">DEALS</h2>
     <div class="grid grid-cols-12 gap-6 mt-5">
         <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
+           @can('deal-create')
             <a href="{{url('deals/add')}}"><button class="btn btn-primary shadow-md mr-2">Add New Deal</button></a>
-            
+           @endcan 
             <div class="hidden md:block mx-auto text-slate-500"></div>
             <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
                 <div class="w-56 relative text-slate-500">
@@ -29,7 +30,9 @@
                         <th class="text-center whitespace-nowrap">AMOUNT</th>
                         <th class="text-center whitespace-nowrap">EXPECTED CLOSE DATE</th>
                         <th class="text-center whitespace-nowrap">STATUS</th>
+                       @canany(['deal-edit', 'deal-delete']) 
                         <th class="text-center whitespace-nowrap">ACTION</th>
+                       @endcan
                     </tr>
                 </thead>
 
@@ -50,20 +53,26 @@
                             </td>
                             <td class="text-center">{{ date('d M Y',strtotime($deal->expected_close_date)) }}</td>
                             <td class="text-center">{{ $deal->status  ? 'Open' : 'Closed' }}</td>
+                            @canany(['deal-edit', 'deal-delete']) 
                             <td class="table-report__action w-56">
                                 <div class="flex justify-center items-center">
+                                  @can('deal-edit')  
                                     <a class="flex items-center mr-3" href="{{ url('deals/edit/'.$deal->id) }}">
                                         <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Edit
                                     </a>
+                                  @endcan
+                                  @can('deal-delete')  
                                     <a href="{{url('deals/delete/'.$deal->id)}}"><button class="flex items-center text-danger" type="button">
                                         <i data-feather="trash-2" class="w-4 h-4 mr-1"></i> Delete
                                     </button></a>
+                                   @endcan 
                                     <!-- <a id="programmatically-show-modal" href="javascript:;" class="btn btn-primary mr-1 mb-2">Show Modal</a> -->
                                     <!-- <button type="button" id="MybtnModal" class="btn btn-primary">Open Modal Using jQuery</button> -->
                                     <!-- </button> -->
                                     <!-- <button id="notification-with-buttons-below-toggle" class="btn btn-primary">Show Notification</button> -->
                                 </div>
                             </td>
+                            @endcan
                         </tr>
                     @endforeach
                    @else

@@ -8,8 +8,9 @@
     <h2 class="intro-y text-lg font-medium mt-10">Companies</h2>
     <div class="grid grid-cols-12 gap-6 mt-5">
         <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
+            @can('company-create')
             <a href="{{url('companies/add')}}"><button class="btn btn-primary shadow-md mr-2">Add New Company</button></a>
-            
+            @endcan
             <div class="hidden md:block mx-auto text-slate-500"></div>
             <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
                 <div class="w-56 relative text-slate-500">
@@ -27,7 +28,9 @@
                         <th class="whitespace-nowrap">COMPANY NAME</th>
                         <th class="text-center whitespace-nowrap">EMAIL</th>
                         <th class="text-center whitespace-nowrap">DOMAIN</th>
+                       @canany(['company-edit', 'company-delete'])   
                         <th class="text-center whitespace-nowrap">ACTIONS</th>
+                      @endcan  
                         <th class="text-center whitespace-nowrap">CREATED AT</th>
                     </tr>
                 </thead>
@@ -46,20 +49,26 @@
                             <td class="text-center">{{ $company->name }}</td>
                             <td class="text-center">{{ $company->email }}</td>
                             <td class="text-center">{{ $company->domain }}</td>
+                            @canany(['company-edit', 'company-delete']) 
                             <td class="table-report__action w-56">
                                 <div class="flex justify-center items-center">
+                                    @can('company-edit')
                                     <a class="flex items-center mr-3" href="{{ url('companies/edit/'.$company->id) }}">
                                         <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Edit
                                     </a>
+                                    @endcan
+                                    @can('company-delete') 
                                     <a href="{{url('companies/delete/'.$company->id)}}"><button class="flex items-center text-danger" type="button">
                                         <i data-feather="trash-2" class="w-4 h-4 mr-1"></i> Delete
                                     </button></a>
+                                    @endcan
                                     <!-- <a id="programmatically-show-modal" href="javascript:;" class="btn btn-primary mr-1 mb-2">Show Modal</a> -->
                                     <!-- <button type="button" id="MybtnModal" class="btn btn-primary">Open Modal Using jQuery</button> -->
                                     <!-- </button> -->
                                     <!-- <button id="notification-with-buttons-below-toggle" class="btn btn-primary">Show Notification</button> -->
                                 </div>
                             </td>
+                            @endcan
                             <td class="text-center">{{ date('d M Y, h:i A',strtotime($company->created_at)) }}</td>
                         </tr>
                     @endforeach

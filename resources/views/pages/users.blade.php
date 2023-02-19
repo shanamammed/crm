@@ -28,7 +28,9 @@
                         <th class="whitespace-nowrap">USER NAME</th>
                         <th class="text-center whitespace-nowrap">EMAIL</th>
                         <th class="text-center whitespace-nowrap">STATUS</th>
+                       @canany(['user-edit', 'user-delete'])  
                         <th class="text-center whitespace-nowrap">ACTIONS</th>
+                       @endcan
                     </tr>
                 </thead>
                 <tbody>
@@ -43,18 +45,24 @@
                                     <i data-feather="check-square" class="w-4 h-4 mr-2"></i> {{ $user->active  ? 'Active' : 'Inactive' }}
                                 </div>
                             </td>
+                            @canany(['user-edit', 'user-delete']) 
                             <td class="table-report__action w-56">
                                 <div class="flex justify-center items-center">
+                                    @can('user-edit')
                                     <a class="flex items-center mr-3" href="{{ url('users/edit/'.$user->id) }}">
                                         <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Edit
                                     </a>
+                                    @endcan
                                     <!-- <button class="flex items-center text-danger" type="button" data-tw-toggle="modal" data-tw-target="#delete-confirmation-modal" id="notification-with-buttons-below-toggle">
                                         <i data-feather="trash-2" class="w-4 h-4 mr-1"></i> Delete
                                     </button> -->
+                                    @can('user-delete')
                                     <a class="flex items-center text-danger" type="button" onclick="return confirm('Are you sure to delete this user?')" href="{{ url('users/delete/'.$user->id) }}"><i data-feather="trash-2" class="w-4 h-4 mr-1"></i>Delete</a>
+                                    @endcan
                                     <!-- <button id="notification-with-buttons-below-toggle" class="btn btn-primary">Show Notification</button> -->
                                 </div>
                             </td>
+                            @endcan
                         </tr>
                     @endforeach
                 </tbody>

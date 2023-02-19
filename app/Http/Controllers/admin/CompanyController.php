@@ -24,11 +24,17 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        $companies = Company::select('companies.id','companies.name','domain','companies.email','users.name as owner_name','companies.created_at')
+        if (auth()->user()->can('company-list')) 
+        {
+            $companies = Company::select('companies.id','companies.name','domain','companies.email','users.name as owner_name','companies.created_at')
             ->join('users','users.id','=','companies.user_id')
             ->orderBy('companies.id','desc')
             ->get();
-        return view('pages.companies',compact('companies'));
+           return view('pages.companies',compact('companies'));
+        } else {
+            return view('pages.error-page');
+        }
+        
     }
 
     /**
@@ -81,26 +87,26 @@ class CompanyController extends Controller
             $company->created_by = auth::user()->id;
             $company->is_active = '1';
             $company->created_at = date('Y-m-d H:i:s');  
-                              
+            $company->save();                  
             if($company)
             {
                 if($request->deals)
                 {
                     foreach($request->deals as $deal) {
-                        DB::table('deal_companies')
-                            ->create(['company_id' => $company->id,
+                        DB::table('deal_companies')->insert(
+                            array('company_id' => $company->id,
                                       'deal_id' => $deal
-                                     ]);
+                                     )); 
                     }
                 }
 
                 if($request->contacts)
                 {
                     foreach($request->contacts as $contact) {
-                        DB::table('company_contacts')
-                            ->create(['company_id' => $company->id,
+                        DB::table('company_contacts')->insert(
+                            array('company_id' => $company->id,
                                       'contact_id' => $contact
-                                     ]);
+                                 ));
                     }
                 }
             }        
@@ -181,10 +187,10 @@ class CompanyController extends Controller
                 if($request->deals)
                 {   
                     foreach($request->deals as $deal) {
-                        DB::table('deal_companies')
-                            ->create(['company_id' => $id,
+                        DB::table('deal_companies')->insert(
+                            array('company_id' => $id,
                                       'deal_id' => $deal
-                                     ]);
+                                 ));
                     }
                 }
                 
@@ -193,9 +199,9 @@ class CompanyController extends Controller
                 {
                     foreach($request->contacts as $contact) {
                         DB::table('company_contacts')
-                            ->create(['company_id' => $id,
+                            ->insert(array('company_id' => $id,
                                       'contact_id' => $contact
-                                     ]);
+                                     ));
                     }
                 }
             }        

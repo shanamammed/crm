@@ -29,15 +29,20 @@ class ContactController extends Controller
      */
     public function index()
     {
-       $contacts = Contact::select('contacts.id','first_name','last_name','contacts.email','users.name as owner_name','contacts.created_at','sources.name as source')
-            ->join('users','users.id','=','contacts.user_id')
-            ->join('sources','sources.id','=','contacts.source_id','left')
-            ->orderBy('contacts.id','desc')
-            ->get();
-        foreach ($contacts as $contact) {
-            $contact->phones = DB::table('contact_mobiles')->select('mobile')->where('contact_id',$contact->id)->get();
-         }   
-        return view('pages.contacts',compact('contacts'));
+        if (auth()->user()->can('contact-list')) 
+        {
+            $contacts = Contact::select('contacts.id','first_name','last_name','contacts.email','users.name as owner_name','contacts.created_at','sources.name as source')
+                ->join('users','users.id','=','contacts.user_id')
+                ->join('sources','sources.id','=','contacts.source_id','left')
+                ->orderBy('contacts.id','desc')
+                ->get();
+            foreach ($contacts as $contact) {
+                $contact->phones = DB::table('contact_mobiles')->select('mobile')->where('contact_id',$contact->id)->get();
+             }   
+            return view('pages.contacts',compact('contacts'));
+        } else {
+            return view('pages.error-page');
+        }    
     }
 
     /**

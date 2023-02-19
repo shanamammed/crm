@@ -7,8 +7,5 @@ use Illuminate\Http\Request;
 
 class SettingsController extends Controller
 {
-    public function roles()
-    {
-        
-    }
+    //
 }
