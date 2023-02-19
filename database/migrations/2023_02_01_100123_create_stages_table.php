@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->string('name');
             $table->unsignedInteger('win_probability')->default(0);
             $table->unsignedInteger('display_order')->index()->nullable();
-            $table->unsignedInteger('pipeline_id');
+            $table->unsignedBigInteger('pipeline_id');
             $table->foreign('pipeline_id')->references('id')->on('pipelines');
             $table->timestamps();
             $table->unique(['name', 'pipeline_id']);
